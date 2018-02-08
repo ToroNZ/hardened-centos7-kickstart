@@ -11,9 +11,12 @@
 ########################################
 # LEGAL BANNER CONFIGURATION
 ########################################
-BANNER_MESSAGE_TEXT='You are accessing a U.S. Government (USG) Information System (IS) that is \nprovided for USG-authorized use only. By using this IS (which includes any \ndevice attached to this IS), you consent to the following conditions:\n\n-The USG routinely intercepts and monitors communications on this IS for \npurposes including, but not limited to, penetration testing, COMSEC monitoring, \nnetwork operations and defense, personnel misconduct (PM), law enforcement \n(LE), and counterintelligence (CI) investigations.\n\n-At any time, the USG may inspect and seize data stored on this IS.\n\n-Communications using, or data stored on, this IS are not private, are subject \nto routine monitoring, interception, and search, and may be disclosed or used \nfor any USG-authorized purpose.\n\n-This IS includes security measures (e.g., authentication and access controls) \nto protect USG interests -- not for your personal benefit or privacy.\n\n-Notwithstanding the above, using this IS does not constitute consent to PM, LE \nor CI investigative searching or monitoring of the content of privileged \ncommunications, or work product, related to personal representation or services \nby attorneys, psychotherapists, or clergy, and their assistants. Such \ncommunications and work product are private and confidential. See User \nAgreement for details.\n\n'
+#BANNER_MESSAGE_TEXT='You are accessing a Datacom NZ Ltd System that is \nprovided for Datacom-authorized use only. By using this system (which includes any \ndevice attached to it), you consent to the following conditions:\n\n-Datacom routinely intercepts and monitors communications on this system for \npurposes including, but not limited to, penetration testing, COMSEC monitoring, \nnetwork operations and defense, personnel misconduct (PM), law enforcement \n(LE), and counterintelligence (CI) investigations.\n\n-At any time, Datacom may inspect and seize data stored on this system.\n\n-Communications using, or data stored on, this system are not private, are subject \nto routine monitoring, interception, and search, and may be disclosed or used \nfor any Datacom-authorized purpose.\n\n-This system includes security measures (e.g., authentication and access controls) \nto protect Datacom interests -- not for your personal benefit or privacy.\n\n-Notwithstanding the above, using this system does not constitute consent to PM, LE \nor CI investigative searching or monitoring of the content of privileged \ncommunications, or work product, related to personal representation or services \nby attorneys, psychotherapists, or clergy, and their assistants. Such \ncommunications and work product are private and confidential. See User \nAgreement for details.\n\n'
+BANNER_MESSAGE_TEXT='\n(\\ _______________\n<))_______________)           @\n(/     /         \\       ____/       ██████╗  ██████╗███████╗ ██████╗\n      /    ____   \\     /    \\       ██╔══██╗██╔════╝██╔════╝██╔════╝\n     /    /    \\   \\   /    _/       ██║  ██║██║     ███████╗██║  ███╗\n    (    (  \\__/    ) /    /         ██║  ██║██║     ╚════██║██║   ██║\n     \\    \\______/ /_/    /          ██████╔╝╚██████╗███████║╚██████╔╝\n   ___\\           /      /           ╚═════╝  ╚═════╝╚══════╝ ╚═════╝ \n_+"____\\_________/______/\n\n\n \033[1;7;30;37mDatacom NZ - Cloud Services for Government \n\n\e[0m \e[92m*All connections are monitored and recorded\n'
+BANNER_MESSAGE_SSH='\n(\ _______________\n<))_______________)           @\n(/     /         \       ____/       ██████╗  ██████╗███████╗ ██████╗\n      /    ____   \     /    \       ██╔══██╗██╔════╝██╔════╝██╔════╝\n     /    /    \   \   /    _/       ██║  ██║██║     ███████╗██║  ███╗\n    (    (  \__/    ) /    /         ██║  ██║██║     ╚════██║██║   ██║\n     \    \______/ /_/    /          ██████╔╝╚██████╗███████║╚██████╔╝\n   ___\           /      /           ╚═════╝  ╚═════╝╚══════╝ ╚═════╝ \n_+"____\_________/______/\n\n\n Datacom NZ - Cloud Services for Government \n\n *All connections are monitored and recorded\n'
 echo -e "${BANNER_MESSAGE_TEXT}" > /etc/issue
 echo -e "${BANNER_MESSAGE_TEXT}" > /etc/issue.net
+echo -e "${BANNER_MESSAGE_SSH}" > /etc/issue.ssh
 
 ########################################
 # DISA STIG PAM Configurations
@@ -293,6 +296,7 @@ cat <<EOF > /etc/audit/rules.d/audit.rules
 -a always,exit -F arch=b64 -S sethostname -S setdomainname -k audit_network_modifications
 -w /etc/issue -p wa -k audit_network_modifications
 -w /etc/issue.net -p wa -k audit_network_modifications
+-w /etc/issue.ssh -p wa -k audit_network_modifications
 -w /etc/hosts -p wa -k audit_network_modifications
 -w /etc/sysconfig/network -p wa -k audit_network_modifications
 
@@ -481,6 +485,7 @@ done
 sed -i '/Ciphers.*/d' /etc/ssh/ssh*config
 sed -i '/MACs.*/d' /etc/ssh/ssh*config
 sed -i '/Protocol.*/d' /etc/ssh/sshd_config
+sed -i 's/Banner/#&/' /etc/ssh/sshd_config
 echo "Protocol 2" >> /etc/ssh/sshd_config
 echo "Ciphers aes128-ctr,aes192-ctr,aes256-ctr" >> /etc/ssh/ssh_config
 echo "Ciphers aes128-ctr,aes192-ctr,aes256-ctr" >> /etc/ssh/sshd_config
@@ -489,7 +494,7 @@ echo "MACs hmac-sha2-512,hmac-sha2-256" >> /etc/ssh/sshd_config
 echo "PrintLastLog yes" >> /etc/ssh/sshd_config
 echo "AllowGroups sshusers" >> /etc/ssh/sshd_config
 echo "MaxAuthTries 3" >> /etc/ssh/sshd_config
-echo "Banner /etc/issue" >> /etc/ssh/sshd_config
+echo "Banner /etc/issue.ssh" >> /etc/ssh/sshd_config
 echo "RhostsRSAAuthentication no" >> /etc/ssh/sshd_config
 echo "GSSAPIAuthentication no" >> /etc/ssh/sshd_config
 echo "KerberosAuthentication no" >> /etc/ssh/sshd_config
