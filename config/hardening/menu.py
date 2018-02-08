@@ -79,7 +79,7 @@ class Display_Menu:
 
                 # Create Main Window
                 self.window = gtk.Window()
-                self.window.set_title("CentOS 7 - Hardend Kickstart Installation")
+                self.window.set_title("CentOS 7 - Datacom Kickstart Installation")
                 self.window.set_position(gtk.WIN_POS_CENTER)
 		self.window.connect("delete_event",gtk.main_quit)
 		self.display = gtk.gdk.display_get_default()
@@ -104,7 +104,7 @@ class Display_Menu:
 
                 # Creates Header
                 self.header = gtk.HBox()
-                self.label = gtk.Label("<span font_family='liberation-sans' weight='bold' foreground='red' size='large'>  CentOS 7 - Hardened Kickstart Installation  </span>")
+                self.label = gtk.Label("<span font_family='liberation-sans' weight='bold' foreground='red' size='large'>  CentOS 7 - Datacom Kickstart Installation  </span>")
                 self.label.set_use_markup(True)
                 self.header.add(self.label)
                 self.vbox.add(self.header)
@@ -112,7 +112,7 @@ class Display_Menu:
                 # Creates Information Message
                 self.label = gtk.Label('This DVD installs CentOS 7 in a hardened configuration.')
                 self.vbox.add(self.label)
-		self.label = gtk.Label('CentOS 7 (SSG DVD Installer v.1.0)')
+		self.label = gtk.Label('CentOS 7 (Datacom DVD Installer v.1.0)')
                 self.vbox.add(self.label)
 
                 # Blank Label
@@ -488,10 +488,10 @@ class Display_Menu:
 				self.MessageBox(self.window,"<b>Recommended minimum of 8Gb disk space for a Minimal Install!</b>\n\n You have "+str(self.disk_total)+"Gb available.",gtk.MESSAGE_WARNING)
 			self.opt_partition.set_value(0)
 			self.www_partition.set_value(0)
-			self.swap_partition.set_value(5)
+			self.swap_partition.set_value(3)
 			self.tmp_partition.set_value(10)
-			self.var_partition.set_value(10)
-			self.log_partition.set_value(10)
+			self.var_partition.set_value(11)
+			self.log_partition.set_value(11)
 			self.audit_partition.set_value(10)
 			self.home_partition.set_value(25)
 			self.root_partition.set_value(30)
