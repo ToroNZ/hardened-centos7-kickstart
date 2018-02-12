@@ -495,7 +495,6 @@ echo "PrintLastLog yes" >> /etc/ssh/sshd_config
 echo "AllowGroups sshusers" >> /etc/ssh/sshd_config
 echo "MaxAuthTries 3" >> /etc/ssh/sshd_config
 echo "Banner /etc/issue.ssh" >> /etc/ssh/sshd_config
-echo "RhostsRSAAuthentication no" >> /etc/ssh/sshd_config
 echo "GSSAPIAuthentication no" >> /etc/ssh/sshd_config
 echo "KerberosAuthentication no" >> /etc/ssh/sshd_config
 echo "IgnoreUserKnownHosts yes" >> /etc/ssh/sshd_config
